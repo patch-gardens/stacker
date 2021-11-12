@@ -1,13 +1,13 @@
 import os
 from setuptools import setup, find_packages
 
-VERSION = "1.7.2"
+VERSION = "1.7.3"
 
 src_dir = os.path.dirname(__file__)
 
 install_requires = [
     "future",
-    "troposphere>=1.9.0",
+    "troposphere>=3.0.0",
     'botocore>=1.12.111',  # matching boto3 requirement
     "boto3>=1.9.111,<2.0",
     "PyYAML>=3.13b1",
