@@ -26,12 +26,13 @@ class OutputLookup(LookupHandler):
             str: output from the specified stack
 
         """
-
         if context is None:
             raise ValueError('Context is required')
 
         d = deconstruct(value)
         stack = context.get_stack(d.stack_name)
+        if 'provider' in kwargs and hasattr(kwargs['provider'], 'get_outputs'):
+            stack.set_outputs(kwargs['provider'].get_outputs(stack.fqn))
         return stack.outputs[d.output_name]
 
     @classmethod
