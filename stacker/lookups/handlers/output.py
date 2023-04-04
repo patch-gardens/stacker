@@ -28,11 +28,13 @@ class OutputLookup(LookupHandler):
         """
         if context is None:
             raise ValueError('Context is required')
-
         d = deconstruct(value)
         stack = context.get_stack(d.stack_name)
-        if 'provider' in kwargs and hasattr(kwargs['provider'], 'get_outputs'):
-            stack.set_outputs(kwargs['provider'].get_outputs(stack.fqn))
+        if 'provider' in kwargs:
+            try:
+                stack.set_outputs(kwargs['provider'].get_outputs(stack.fqn))
+            except AttributeError:
+                pass
         return stack.outputs[d.output_name]
 
     @classmethod
